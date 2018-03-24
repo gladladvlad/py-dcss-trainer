@@ -29,6 +29,9 @@ if proc_handle == 0:
         print(ctypes.WinError(ctypes.get_last_error()))
         sys.exit()
 
+################# some patches #######################
+god = patch(0x008655F0, bin_buf('90 90 90 90 90'), bin_buf('A3 543C1C01'))
+instakill = patch(0x00807A24, bin_buf('29C0'), bin_buf('29F0'))
 ######################################################
 cmd = ""
 while cmd == "" or cmd[0] != "exit":
@@ -39,9 +42,8 @@ while cmd == "" or cmd[0] != "exit":
     cmd = cmd.strip().split()
 
     if cmd[0] == "damage":
-        switch_dmg(proc_handle)
+        instakill.toggle(proc_handle)
     if cmd[0] == "god":
-        switch_god(proc_handle)
-
+        god.toggle(proc_handle)
 
 CH(proc_handle)

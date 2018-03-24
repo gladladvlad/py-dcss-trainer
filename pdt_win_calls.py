@@ -17,4 +17,8 @@ PROCESS_VM_OPERATION = 0x0008
 OP = ctypes.WinDLL('kernel32', use_last_error=True).OpenProcess
 OP.argtypes = [ctypes.c_int, ctypes.c_bool, ctypes.c_int]
 OP.restype = ctypes.c_int
+
+CH = ctypes.WinDLL('kernel32', use_last_error=True).CloseHandle
+CH.argtypes = [ctypes.c_int]
+CH.restype = ctypes.c_bool
 ##########################################################

@@ -12,7 +12,7 @@ if not is_admin():
     get_admin()
     #leave commented for now
     #useful for debugging
-    #sys.exit()
+    sys.exit()
 
 ############### init stuff ###########################
 if len(sys.argv) != 2:
@@ -40,4 +40,8 @@ while cmd == "" or cmd[0] != "exit":
 
     if cmd[0] == "damage":
         switch_dmg(proc_handle)
+    if cmd[0] == "god":
+        switch_god(proc_handle)
 
+
+CH(proc_handle)

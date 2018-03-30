@@ -27,7 +27,7 @@ proc_handle = OP(PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION, Fals
 if proc_handle == 0:
         print("no proc!")
         print(ctypes.WinError(ctypes.get_last_error()))
-        sys.exit()
+        #sys.exit()
 
 ################# some patches #######################
 god = patch(0x008655F0, bin_buf('90 90 90 90 90'), bin_buf('A3 543C1C01'))
@@ -53,5 +53,10 @@ while cmd == "" or cmd[0] != "exit":
         god.toggle(proc_handle)
     if cmd[0] == "pos":
         get_xy(proc_handle)
+    if cmd[0] == "modmap":
+        if len(cmd) == 4:
+            mod_map(proc_handle, int(cmd[1], 10), int(cmd[2], 10), bin_buf(cmd[3]))
+        else:
+            print("not enough args for modmap")
 
 CH(proc_handle)

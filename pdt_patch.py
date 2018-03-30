@@ -1,5 +1,6 @@
 import ctypes
 import pdt_win_calls 
+import pdt_bin_buf
 import sys
 import io
 
@@ -53,4 +54,9 @@ class patch:
         print("applying patch")
         pdt_win_calls.WPM(proc_handle, self.address, self.buffer_patch, self.buffer_size, ctypes.byref(bytes_written))
 
-
+def get_xy (proc_handle):
+    print("player is at position: (", end='')
+    read_buffer = ctypes.create_string_buffer(8)
+    bytes_read = ctypes.c_size_t()
+    pdt_win_calls.RPM(proc_handle, 0x011C3BAC, read_buffer, 8, ctypes.byref(bytes_read))
+    print("{}, {})".format(int.from_bytes(read_buffer[:4], byteorder='little'), int.from_bytes(read_buffer[4:8], byteorder='little')))

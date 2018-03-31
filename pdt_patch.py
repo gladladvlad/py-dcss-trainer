@@ -75,3 +75,8 @@ def mod_map (proc_handle, x, y, tile):
     print(ctypes.WinError(ctypes.get_last_error()))
     print("{} bytes written".format(bytes_written))
 
+def digger_patch (proc_handle):
+    patch_jump = patch(0x005A6630, pdt_bin_buf.bin_buf("E9 D6 D2 90 00"), pdt_bin_buf.bin_buf("8B 75 08 8B 45"))
+    patch_dig = patch(0x00EB390B, pdt_bin_buf.bin_buf("8B 75 08 8B 45 08 8B 16 8B 40 04 52 50 6B D2 46 01 D0 8D 04 85 D8 B6 22 01 8B 10 83 EA 21 72 07 8B 10 83 EA 7A 72 33 8B 10 83 EA 01 72 07 8B 10 83 EA 04 72 25 EB 1D 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 C7 00 21 00 00 00 8B 00 58 5A E9 CD 2C 6F FF"))
+    patch_jump.toggle(proc_handle)
+    patch_dig.toggle(proc_handle)

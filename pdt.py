@@ -58,5 +58,7 @@ while cmd == "" or cmd[0] != "exit":
             mod_map(proc_handle, int(cmd[1], 10), int(cmd[2], 10), bin_buf(cmd[3]))
         else:
             print("not enough args for modmap")
+    if cmd[0] == "dig":
+        digger_patch(proc_handle)
 
 CH(proc_handle)
